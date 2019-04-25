@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		8D27591822702D220038989F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27591722702D220038989F /* AppDelegate.swift */; };
-		8D27591A22702D220038989F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27591922702D220038989F /* ViewController.swift */; };
 		8D27591D22702D220038989F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D27591B22702D220038989F /* Main.storyboard */; };
 		8D27592022702D220038989F /* DQ_Statistics.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8D27591E22702D220038989F /* DQ_Statistics.xcdatamodeld */; };
 		8D27592222702D230038989F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D27592122702D230038989F /* Assets.xcassets */; };
 		8D27592522702D230038989F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D27592322702D230038989F /* LaunchScreen.storyboard */; };
 		8D27593022702D230038989F /* DQ_StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27592F22702D230038989F /* DQ_StatisticsTests.swift */; };
+		8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D27593C227148AE0038989F /* SWRevealViewController.m */; };
+		8D27593F22714C730038989F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27593E22714C730038989F /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +30,6 @@
 /* Begin PBXFileReference section */
 		8D27591422702D220038989F /* DQ Statistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DQ Statistics.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D27591722702D220038989F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8D27591922702D220038989F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8D27591C22702D220038989F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D27591F22702D220038989F /* DQ_Statistics.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DQ_Statistics.xcdatamodel; sourceTree = "<group>"; };
 		8D27592122702D230038989F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +38,10 @@
 		8D27592B22702D230038989F /* DQ StatisticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DQ StatisticsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D27592F22702D230038989F /* DQ_StatisticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DQ_StatisticsTests.swift; sourceTree = "<group>"; };
 		8D27593122702D230038989F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D27593A227148AD0038989F /* DQ Statistics-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DQ Statistics-Bridging-Header.h"; sourceTree = "<group>"; };
+		8D27593B227148AE0038989F /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
+		8D27593C227148AE0038989F /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
+		8D27593E22714C730038989F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,12 +84,15 @@
 			isa = PBXGroup;
 			children = (
 				8D27591722702D220038989F /* AppDelegate.swift */,
-				8D27591922702D220038989F /* ViewController.swift */,
 				8D27591B22702D220038989F /* Main.storyboard */,
 				8D27592122702D230038989F /* Assets.xcassets */,
+				8D27593E22714C730038989F /* ViewController.swift */,
 				8D27592322702D230038989F /* LaunchScreen.storyboard */,
+				8D27593B227148AE0038989F /* SWRevealViewController.h */,
+				8D27593C227148AE0038989F /* SWRevealViewController.m */,
 				8D27592622702D230038989F /* Info.plist */,
 				8D27591E22702D220038989F /* DQ_Statistics.xcdatamodeld */,
+				8D27593A227148AD0038989F /* DQ Statistics-Bridging-Header.h */,
 			);
 			path = "DQ Statistics";
 			sourceTree = "<group>";
@@ -149,6 +156,7 @@
 				TargetAttributes = {
 					8D27591322702D220038989F = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 					8D27592A22702D230038989F = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -200,9 +208,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D27591A22702D220038989F /* ViewController.swift in Sources */,
 				8D27591822702D220038989F /* AppDelegate.swift in Sources */,
 				8D27592022702D220038989F /* DQ_Statistics.xcdatamodeld in Sources */,
+				8D27593F22714C730038989F /* ViewController.swift in Sources */,
+				8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +373,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9R69B3BTGJ;
 				INFOPLIST_FILE = "DQ Statistics/Info.plist";
@@ -373,6 +383,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "JacobLaing.DQ-Statistics";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DQ Statistics/DQ Statistics-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -382,6 +394,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9R69B3BTGJ;
 				INFOPLIST_FILE = "DQ Statistics/Info.plist";
@@ -391,6 +404,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "JacobLaing.DQ-Statistics";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "DQ Statistics/DQ Statistics-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

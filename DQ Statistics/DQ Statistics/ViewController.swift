@@ -16,8 +16,11 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         sideMenus()
         customizeNavBar()
+        
+        
         // Do any additional setup after loading the view.
     }
+    
     
     func sideMenus() {
         if revealViewController() != nil {
@@ -38,7 +41,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 122/255, blue: 193/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
-
+    
     /*
     // MARK: - Navigation
 

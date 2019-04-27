@@ -15,6 +15,10 @@
 		8D27593022702D230038989F /* DQ_StatisticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27592F22702D230038989F /* DQ_StatisticsTests.swift */; };
 		8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D27593C227148AE0038989F /* SWRevealViewController.m */; };
 		8D27593F22714C730038989F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27593E22714C730038989F /* ViewController.swift */; };
+		8D27594B2273F1090038989F /* YieldsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27594A2273F1090038989F /* YieldsViewController.swift */; };
+		8D27594D2273F2BD0038989F /* DrawersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27594C2273F2BD0038989F /* DrawersViewController.swift */; };
+		8D27594F2273F2CE0038989F /* ContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27594E2273F2CE0038989F /* ContestViewController.swift */; };
+		8D2759512273F2DC0038989F /* ManagersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759502273F2DC0038989F /* ManagersViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,10 @@
 		8D27593B227148AE0038989F /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
 		8D27593C227148AE0038989F /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
 		8D27593E22714C730038989F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		8D27594A2273F1090038989F /* YieldsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YieldsViewController.swift; sourceTree = "<group>"; };
+		8D27594C2273F2BD0038989F /* DrawersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawersViewController.swift; sourceTree = "<group>"; };
+		8D27594E2273F2CE0038989F /* ContestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestViewController.swift; sourceTree = "<group>"; };
+		8D2759502273F2DC0038989F /* ManagersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagersViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +93,8 @@
 			children = (
 				8D27591722702D220038989F /* AppDelegate.swift */,
 				8D27591B22702D220038989F /* Main.storyboard */,
+				8D27594A2273F1090038989F /* YieldsViewController.swift */,
+				8D27594C2273F2BD0038989F /* DrawersViewController.swift */,
 				8D27592122702D230038989F /* Assets.xcassets */,
 				8D27593E22714C730038989F /* ViewController.swift */,
 				8D27592322702D230038989F /* LaunchScreen.storyboard */,
@@ -93,6 +103,8 @@
 				8D27592622702D230038989F /* Info.plist */,
 				8D27591E22702D220038989F /* DQ_Statistics.xcdatamodeld */,
 				8D27593A227148AD0038989F /* DQ Statistics-Bridging-Header.h */,
+				8D27594E2273F2CE0038989F /* ContestViewController.swift */,
+				8D2759502273F2DC0038989F /* ManagersViewController.swift */,
 			);
 			path = "DQ Statistics";
 			sourceTree = "<group>";
@@ -209,7 +221,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D27591822702D220038989F /* AppDelegate.swift in Sources */,
+				8D27594D2273F2BD0038989F /* DrawersViewController.swift in Sources */,
+				8D27594B2273F1090038989F /* YieldsViewController.swift in Sources */,
 				8D27592022702D220038989F /* DQ_Statistics.xcdatamodeld in Sources */,
+				8D2759512273F2DC0038989F /* ManagersViewController.swift in Sources */,
+				8D27594F2273F2CE0038989F /* ContestViewController.swift in Sources */,
 				8D27593F22714C730038989F /* ViewController.swift in Sources */,
 				8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */,
 			);

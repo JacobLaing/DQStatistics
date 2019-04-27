@@ -19,6 +19,11 @@
 		8D27594D2273F2BD0038989F /* DrawersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27594C2273F2BD0038989F /* DrawersViewController.swift */; };
 		8D27594F2273F2CE0038989F /* ContestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27594E2273F2CE0038989F /* ContestViewController.swift */; };
 		8D2759512273F2DC0038989F /* ManagersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759502273F2DC0038989F /* ManagersViewController.swift */; };
+		8D27596122740A2E0038989F /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596022740A2E0038989F /* PersistenceService.swift */; };
+		8D275964227410E50038989F /* Manager+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D275962227410E50038989F /* Manager+CoreDataClass.swift */; };
+		8D275965227410E50038989F /* Manager+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D275963227410E50038989F /* Manager+CoreDataProperties.swift */; };
+		8D27596C22742AC60038989F /* Labor+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596A22742AC60038989F /* Labor+CoreDataClass.swift */; };
+		8D27596D22742AC60038989F /* Labor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +55,11 @@
 		8D27594C2273F2BD0038989F /* DrawersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawersViewController.swift; sourceTree = "<group>"; };
 		8D27594E2273F2CE0038989F /* ContestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestViewController.swift; sourceTree = "<group>"; };
 		8D2759502273F2DC0038989F /* ManagersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagersViewController.swift; sourceTree = "<group>"; };
+		8D27596022740A2E0038989F /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		8D275962227410E50038989F /* Manager+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Manager+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8D275963227410E50038989F /* Manager+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Manager+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8D27596A22742AC60038989F /* Labor+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Labor+CoreDataClass.swift"; sourceTree = "<group>"; };
+		8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Labor+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +101,10 @@
 		8D27591622702D220038989F /* DQ Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				8D27596A22742AC60038989F /* Labor+CoreDataClass.swift */,
+				8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */,
+				8D275962227410E50038989F /* Manager+CoreDataClass.swift */,
+				8D275963227410E50038989F /* Manager+CoreDataProperties.swift */,
 				8D27591722702D220038989F /* AppDelegate.swift */,
 				8D27591B22702D220038989F /* Main.storyboard */,
 				8D27594A2273F1090038989F /* YieldsViewController.swift */,
@@ -105,6 +119,7 @@
 				8D27593A227148AD0038989F /* DQ Statistics-Bridging-Header.h */,
 				8D27594E2273F2CE0038989F /* ContestViewController.swift */,
 				8D2759502273F2DC0038989F /* ManagersViewController.swift */,
+				8D27596022740A2E0038989F /* PersistenceService.swift */,
 			);
 			path = "DQ Statistics";
 			sourceTree = "<group>";
@@ -220,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D27596D22742AC60038989F /* Labor+CoreDataProperties.swift in Sources */,
 				8D27591822702D220038989F /* AppDelegate.swift in Sources */,
 				8D27594D2273F2BD0038989F /* DrawersViewController.swift in Sources */,
 				8D27594B2273F1090038989F /* YieldsViewController.swift in Sources */,
@@ -227,7 +243,11 @@
 				8D2759512273F2DC0038989F /* ManagersViewController.swift in Sources */,
 				8D27594F2273F2CE0038989F /* ContestViewController.swift in Sources */,
 				8D27593F22714C730038989F /* ViewController.swift in Sources */,
+				8D27596122740A2E0038989F /* PersistenceService.swift in Sources */,
+				8D27596C22742AC60038989F /* Labor+CoreDataClass.swift in Sources */,
 				8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */,
+				8D275964227410E50038989F /* Manager+CoreDataClass.swift in Sources */,
+				8D275965227410E50038989F /* Manager+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

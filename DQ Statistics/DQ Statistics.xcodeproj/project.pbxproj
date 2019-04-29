@@ -24,6 +24,8 @@
 		8D275965227410E50038989F /* Manager+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D275963227410E50038989F /* Manager+CoreDataProperties.swift */; };
 		8D27596C22742AC60038989F /* Labor+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596A22742AC60038989F /* Labor+CoreDataClass.swift */; };
 		8D27596D22742AC60038989F /* Labor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */; };
+		8D27596F227672B70038989F /* LaborPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596E227672B70038989F /* LaborPopupViewController.swift */; };
+		8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759702276ABD60038989F /* managersPopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		8D275963227410E50038989F /* Manager+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Manager+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8D27596A22742AC60038989F /* Labor+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Labor+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Labor+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8D27596E227672B70038989F /* LaborPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaborPopupViewController.swift; sourceTree = "<group>"; };
+		8D2759702276ABD60038989F /* managersPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managersPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 				8D275962227410E50038989F /* Manager+CoreDataClass.swift */,
 				8D275963227410E50038989F /* Manager+CoreDataProperties.swift */,
 				8D27591722702D220038989F /* AppDelegate.swift */,
+				8D2759702276ABD60038989F /* managersPopupViewController.swift */,
+				8D27596E227672B70038989F /* LaborPopupViewController.swift */,
 				8D27591B22702D220038989F /* Main.storyboard */,
 				8D27594A2273F1090038989F /* YieldsViewController.swift */,
 				8D27594C2273F2BD0038989F /* DrawersViewController.swift */,
@@ -241,8 +247,10 @@
 				8D27594B2273F1090038989F /* YieldsViewController.swift in Sources */,
 				8D27592022702D220038989F /* DQ_Statistics.xcdatamodeld in Sources */,
 				8D2759512273F2DC0038989F /* ManagersViewController.swift in Sources */,
+				8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */,
 				8D27594F2273F2CE0038989F /* ContestViewController.swift in Sources */,
 				8D27593F22714C730038989F /* ViewController.swift in Sources */,
+				8D27596F227672B70038989F /* LaborPopupViewController.swift in Sources */,
 				8D27596122740A2E0038989F /* PersistenceService.swift in Sources */,
 				8D27596C22742AC60038989F /* Labor+CoreDataClass.swift in Sources */,
 				8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */,

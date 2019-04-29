@@ -23,29 +23,23 @@ class ManagersViewController: UIViewController {
         let fetchRequest: NSFetchRequest<Manager> = Manager.fetchRequest()
         do {
             let managers = try PersistenceService.context.fetch(fetchRequest)
-            self.managers = managers
+            let managersSorted = managers.sorted { $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending}
+            self.managers = managersSorted
             self.tableView.reloadData()
         } catch{}
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateManagerTable(_:)), name: Notification.Name(rawValue: "updateManagerTable"), object: nil)
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func onPlusTapped() {
-        let alert = UIAlertController(title: "Add Manager", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Name"
-        }
-        let action = UIAlertAction(title: "Add Manager", style: .default) { (_) in
-            let name = alert.textFields!.first!.text!
-            let manager = Manager(context: PersistenceService.context)
-            if (!name.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines).isEmpty) {
-                manager.name = name.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                PersistenceService.saveContext()
-                self.managers.append(manager)
-                self.tableView.reloadData()
-            }
-        }
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+    @objc func updateManagerTable(_ notification: Notification) {
+        let fetchRequest: NSFetchRequest<Manager> = Manager.fetchRequest()
+        do {
+            let managers = try PersistenceService.context.fetch(fetchRequest)
+            let managersSorted = managers.sorted { $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending}
+            self.managers = managersSorted
+            self.tableView.reloadData()
+        } catch{}
     }
     
     func sideMenus() {
@@ -82,5 +76,22 @@ extension ManagersViewController: UITableViewDataSource {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
         cell.textLabel?.text = managers[indexPath.row].name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            PersistenceService.context.delete(managers[indexPath.row])
+            let fetchRequest: NSFetchRequest<Manager> = Manager.fetchRequest()
+            do {
+                let managers = try PersistenceService.context.fetch(fetchRequest)
+                let managersSorted = managers.sorted { $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending}
+                self.managers = managersSorted
+                self.tableView.reloadData()
+            } catch{}
+        }
     }
 }

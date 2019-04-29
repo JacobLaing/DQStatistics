@@ -23,41 +23,23 @@ class ViewController: UIViewController {
         let fetchRequest: NSFetchRequest<Labor> = Labor.fetchRequest()
         do {
             let labors = try PersistenceService.context.fetch(fetchRequest)
-            self.labors = labors
+            let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
+            self.labors = sortedLabors
             self.tableView.reloadData()
         } catch{}
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLaborTable(_:)), name: Notification.Name(rawValue: "updateLaborTable"), object: nil)
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func onPlusTapped() {
-        let alert = UIAlertController(title: "Add Labor Statistic", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Manager Name"
-        }
-        alert.addTextField { (textField) in
-            textField.placeholder = "Date (mm/dd/yyyy)"
-        }
-        alert.addTextField { (textField) in
-            textField.placeholder = "Labor Amount"
-        }
-        let action = UIAlertAction(title: "Add Labor Statistic", style: .default) { (_) in
-            let name = alert.textFields!.first!.text!
-            let date = alert.textFields![1].text
-            let amount = alert.textFields!.last?.text!
-            let labor = Labor(context: PersistenceService.context)
-            if (!name.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines).isEmpty) {
-                labor.name = name.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM/dd/yyyy"
-                labor.date = dateFormatter.date(from: date!) as NSDate?
-                labor.amount = Double(amount!) ?? 0.0
-                PersistenceService.saveContext()
-                self.labors.append(labor)
-                self.tableView.reloadData()
-            }
-        }
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+    @objc func updateLaborTable(_ notification: Notification) {
+        let fetchRequest: NSFetchRequest<Labor> = Labor.fetchRequest()
+        do {
+            let labors = try PersistenceService.context.fetch(fetchRequest)
+            let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
+            self.labors = sortedLabors
+            self.tableView.reloadData()
+        } catch{}
     }
     
     func sideMenus() {
@@ -76,6 +58,7 @@ class ViewController: UIViewController {
         navigationController?.navigationBar.barTintColor = UIColor(red: 0/255, green: 122/255, blue: 193/255, alpha: 1)
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
+    
 }
 
 extension ViewController: UITableViewDataSource {
@@ -98,5 +81,22 @@ extension ViewController: UITableViewDataSource {
         label.textAlignment = .right
         cell.accessoryView = label
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            PersistenceService.context.delete(labors[indexPath.row])
+            let fetchRequest: NSFetchRequest<Labor> = Labor.fetchRequest()
+            do {
+                let labors = try PersistenceService.context.fetch(fetchRequest)
+                let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
+                self.labors = sortedLabors
+                self.tableView.reloadData()
+            } catch{}
+        }
     }
 }

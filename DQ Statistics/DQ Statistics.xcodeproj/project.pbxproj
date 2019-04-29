@@ -26,6 +26,7 @@
 		8D27596D22742AC60038989F /* Labor+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */; };
 		8D27596F227672B70038989F /* LaborPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596E227672B70038989F /* LaborPopupViewController.swift */; };
 		8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759702276ABD60038989F /* managersPopupViewController.swift */; };
+		8D2759732276B5320038989F /* app_icon.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D2759722276B5310038989F /* app_icon.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Labor+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8D27596E227672B70038989F /* LaborPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaborPopupViewController.swift; sourceTree = "<group>"; };
 		8D2759702276ABD60038989F /* managersPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managersPopupViewController.swift; sourceTree = "<group>"; };
+		8D2759722276B5310038989F /* app_icon.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon.JPG; path = ../../../../app_icon.JPG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 				8D27593B227148AE0038989F /* SWRevealViewController.h */,
 				8D27593C227148AE0038989F /* SWRevealViewController.m */,
 				8D27592622702D230038989F /* Info.plist */,
+				8D2759722276B5310038989F /* app_icon.JPG */,
 				8D27591E22702D220038989F /* DQ_Statistics.xcdatamodeld */,
 				8D27593A227148AD0038989F /* DQ Statistics-Bridging-Header.h */,
 				8D27594E2273F2CE0038989F /* ContestViewController.swift */,
@@ -221,6 +224,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D2759732276B5320038989F /* app_icon.JPG in Resources */,
 				8D27592522702D230038989F /* LaunchScreen.storyboard in Resources */,
 				8D27592222702D230038989F /* Assets.xcassets in Resources */,
 				8D27591D22702D220038989F /* Main.storyboard in Resources */,

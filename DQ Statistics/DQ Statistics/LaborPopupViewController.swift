@@ -127,7 +127,6 @@ class LaborPopupViewController: UIViewController, UIPickerViewDelegate, UIPicker
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         dateTextField.text = dateFormatter.string(from: datePicker.date)
-        view.endEditing(true)
     }
 
 }

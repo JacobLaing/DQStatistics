@@ -27,6 +27,7 @@
 		8D27596F227672B70038989F /* LaborPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27596E227672B70038989F /* LaborPopupViewController.swift */; };
 		8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759702276ABD60038989F /* managersPopupViewController.swift */; };
 		8D2759732276B5320038989F /* app_icon.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D2759722276B5310038989F /* app_icon.JPG */; };
+		8D2759752276C62D0038989F /* ContestPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759742276C62D0038989F /* ContestPopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		8D27596E227672B70038989F /* LaborPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaborPopupViewController.swift; sourceTree = "<group>"; };
 		8D2759702276ABD60038989F /* managersPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managersPopupViewController.swift; sourceTree = "<group>"; };
 		8D2759722276B5310038989F /* app_icon.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon.JPG; path = ../../../../app_icon.JPG; sourceTree = "<group>"; };
+		8D2759742276C62D0038989F /* ContestPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				8D275962227410E50038989F /* Manager+CoreDataClass.swift */,
 				8D275963227410E50038989F /* Manager+CoreDataProperties.swift */,
 				8D27591722702D220038989F /* AppDelegate.swift */,
+				8D2759742276C62D0038989F /* ContestPopupViewController.swift */,
 				8D2759702276ABD60038989F /* managersPopupViewController.swift */,
 				8D27596E227672B70038989F /* LaborPopupViewController.swift */,
 				8D27591B22702D220038989F /* Main.storyboard */,
@@ -257,6 +260,7 @@
 				8D27596F227672B70038989F /* LaborPopupViewController.swift in Sources */,
 				8D27596122740A2E0038989F /* PersistenceService.swift in Sources */,
 				8D27596C22742AC60038989F /* Labor+CoreDataClass.swift in Sources */,
+				8D2759752276C62D0038989F /* ContestPopupViewController.swift in Sources */,
 				8D27593D227148AE0038989F /* SWRevealViewController.m in Sources */,
 				8D275964227410E50038989F /* Manager+CoreDataClass.swift in Sources */,
 				8D275965227410E50038989F /* Manager+CoreDataProperties.swift in Sources */,

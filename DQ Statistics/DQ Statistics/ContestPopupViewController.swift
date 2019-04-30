@@ -14,6 +14,7 @@ class ContestPopupViewController: UIViewController {
     @IBOutlet weak var endDate: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var clearDatesButton: UIButton!
     
     private var startDatePicker: UIDatePicker?
     private var endDatePicker: UIDatePicker?
@@ -35,8 +36,27 @@ class ContestPopupViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
         
         startDate.inputView = startDatePicker
+        startDate.addTarget(self, action: #selector(startDateTapped), for: .touchDown)
         endDate.inputView = endDatePicker
+        endDate.addTarget(self, action: #selector(endDateTapped), for: .touchDown)
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func startDateTapped(textField: UITextField) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        startDate.text = dateFormatter.string(from: startDatePicker!.date)
+        endDate.text = dateFormatter.string(from: endDatePicker!.date)
+    }
+    @objc func endDateTapped(textField: UITextField) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        startDate.text = dateFormatter.string(from: startDatePicker!.date)
+        endDate.text = dateFormatter.string(from: endDatePicker!.date)
+    }
+    @IBAction func clearDatesPressed_TouchUpInside(_ sender: UIButton) {
+        startDate.text = ""
+        endDate.text = ""
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
@@ -48,12 +68,14 @@ class ContestPopupViewController: UIViewController {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         startDate.text = dateFormatter.string(from: startDatePicker.date)
         endDatePicker?.minimumDate = startDatePicker.date
+        endDate.text = dateFormatter.string(from: endDatePicker!.date)
     }
     @objc func endDateChanged(endDatePicker: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
         endDate.text = dateFormatter.string(from: endDatePicker.date)
         startDatePicker?.maximumDate = endDatePicker.date
+        startDate.text = dateFormatter.string(from: startDatePicker!.date)
     }
     
     @IBAction func cancelSelectDates_TouchUpInside(_ sender: UIButton) {

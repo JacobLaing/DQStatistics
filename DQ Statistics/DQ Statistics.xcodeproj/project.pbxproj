@@ -28,6 +28,7 @@
 		8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759702276ABD60038989F /* managersPopupViewController.swift */; };
 		8D2759732276B5320038989F /* app_icon.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D2759722276B5310038989F /* app_icon.JPG */; };
 		8D2759752276C62D0038989F /* ContestPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759742276C62D0038989F /* ContestPopupViewController.swift */; };
+		8D2759772278254C0038989F /* ContestFilterPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759762278254B0038989F /* ContestFilterPopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		8D2759702276ABD60038989F /* managersPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managersPopupViewController.swift; sourceTree = "<group>"; };
 		8D2759722276B5310038989F /* app_icon.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon.JPG; path = ../../../../app_icon.JPG; sourceTree = "<group>"; };
 		8D2759742276C62D0038989F /* ContestPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestPopupViewController.swift; sourceTree = "<group>"; };
+		8D2759762278254B0038989F /* ContestFilterPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestFilterPopupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				8D2759742276C62D0038989F /* ContestPopupViewController.swift */,
 				8D2759702276ABD60038989F /* managersPopupViewController.swift */,
 				8D27596E227672B70038989F /* LaborPopupViewController.swift */,
+				8D2759762278254B0038989F /* ContestFilterPopupViewController.swift */,
 				8D27591B22702D220038989F /* Main.storyboard */,
 				8D27594A2273F1090038989F /* YieldsViewController.swift */,
 				8D27594C2273F2BD0038989F /* DrawersViewController.swift */,
@@ -257,6 +260,7 @@
 				8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */,
 				8D27594F2273F2CE0038989F /* ContestViewController.swift in Sources */,
 				8D27593F22714C730038989F /* ViewController.swift in Sources */,
+				8D2759772278254C0038989F /* ContestFilterPopupViewController.swift in Sources */,
 				8D27596F227672B70038989F /* LaborPopupViewController.swift in Sources */,
 				8D27596122740A2E0038989F /* PersistenceService.swift in Sources */,
 				8D27596C22742AC60038989F /* Labor+CoreDataClass.swift in Sources */,

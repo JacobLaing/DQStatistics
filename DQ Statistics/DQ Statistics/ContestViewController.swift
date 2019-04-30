@@ -22,6 +22,11 @@ class ContestViewController: UIViewController {
     var managers = [Manager]()
     var managerNames = [String]()
     var managerLabors = [Labor]()
+    var avgManagerLabors = [Double]()
+    
+    var laborsSortedForTable = [Double]()
+    var managersSortedForTable = [String]()
+    var shiftsSortedForTable = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +48,7 @@ class ContestViewController: UIViewController {
         
         sortByManagerName()
         dateRangeLabel.text = ""
+        calculateAverageLabors(laborsToUse: managerLabors)
         NotificationCenter.default.addObserver(self, selector: #selector(datesSelected(_:)), name: Notification.Name(rawValue: "datesSelected"), object: nil)
         // Do any additional setup after loading the view.
     }
@@ -50,19 +56,116 @@ class ContestViewController: UIViewController {
     @objc func datesSelected(_ notification: Notification) {
         guard let startDate = notification.userInfo!["startDate"] as? String else { return }
         guard let endDate = notification.userInfo!["endDate"] as? String else { return }
-        dateRangeLabel.text = String(startDate) + " -> " + String(endDate)
+        if (!startDate.isEmpty && !endDate.isEmpty) {
+            dateRangeLabel.text = String(startDate) + " -> " + String(endDate)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            var laborsByDate = [Labor]()
+            for labor in managerLabors {
+                if ((dateFormatter.date(from: startDate)! ... dateFormatter.date(from: endDate)!).contains(labor.date! as Date)) {
+                    laborsByDate.append(labor)
+                }
+            }
+            calculateAverageLabors(laborsToUse: laborsByDate)
+        }
+        else {
+            dateRangeLabel.text = ""
+            calculateAverageLabors(laborsToUse: managerLabors)
+        }
+    }
+    
+    func calculateAverageLabors(laborsToUse: [Labor]) {
+        if (!laborsToUse.isEmpty) {
+            avgManagerLabors = [Double]()
+            var managerSpecificLabors = [Labor]()
+            var managersToUse = managerNames
+            let tempNames = managersToUse
+            for manager in tempNames {
+                managerSpecificLabors = [Labor]()
+                for labor in laborsToUse {
+                    if (labor.name! == manager) {
+                        managerSpecificLabors.append(labor)
+                    }
+                }
+                if (managerSpecificLabors.count == 0) {
+                    if let indexValue = managersToUse.firstIndex(of: manager) {
+                        managersToUse.remove(at: indexValue)
+                    }
+                }
+            }
+            for manager in managersToUse {
+                var totalLabor = 0.0
+                managerSpecificLabors = [Labor]()
+                for labor in laborsToUse {
+                    if (labor.name! == manager) {
+                        managerSpecificLabors.append(labor)
+                        totalLabor += labor.amount
+                    }
+                }
+                let numShifts = managerSpecificLabors.count
+                let avgLabor = totalLabor/Double(numShifts)
+                avgManagerLabors.append(avgLabor)
+            }
+            var avgLaborsSorted = [Double]()
+            avgLaborsSorted = avgManagerLabors.sorted()
+            var place = 0;
+            managersSortedForTable = [String]()
+            laborsSortedForTable = [Double]()
+            shiftsSortedForTable = [Int]()
+            for value in avgLaborsSorted {
+                var i = 0;
+                for labor in avgManagerLabors {
+                    if (labor == value) {
+                        let managerName = managersToUse[i]
+                        let amount = value
+                        managerSpecificLabors = [Labor]()
+                        for labor in laborsToUse {
+                            if (labor.name == managerName) {
+                                managerSpecificLabors.append(labor)
+                            }
+                        }
+                        let shifts = managerSpecificLabors.count
+                        if (place == 0) {
+                            firstPlaceNameLabel.text = managerName
+                            firstPlaceAvgLaborLabel.text = String(format: "%.2f", amount)
+                            firstPlaceShiftsLabel.text = String(shifts)
+                        }
+                        else {
+                            managersSortedForTable.append(managersToUse[i])
+                            laborsSortedForTable.append(value)
+                            shiftsSortedForTable.append(shifts)
+                        }
+                    }
+                    else {
+                        i += 1
+                    }
+                }
+                place += 1
+            }
+        }
+        else {
+            managersSortedForTable = [String]()
+            laborsSortedForTable = [Double]()
+            shiftsSortedForTable = [Int]()
+            firstPlaceNameLabel.text = "-"
+            firstPlaceAvgLaborLabel.text = "-"
+            firstPlaceShiftsLabel.text = "-"
+        }
+        tableView.reloadData()
     }
     
     func sortByManagerName() {
         for manager in self.managers {
-            managerNames.append(manager.name!)
+            if (manager.name != "Peyton Ahrens" && manager.name != "Peyton" &&
+                manager.name != "Koby Donithan" && manager.name != "Koby") {
+                managerNames.append(manager.name!)
+            }
         }
         for labor in self.labors {
             if (managerNames.contains(labor.name!)) {
                 managerLabors.append(labor)
             }
         }
-        self.labors = managerLabors
     }
     
     func sideMenus() {
@@ -92,22 +195,23 @@ extension ContestViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0//labors.count
+        return laborsSortedForTable.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        /*
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        cell.textLabel?.text = labors[indexPath.row].name!
-        cell.detailTextLabel?.text = dateFormatter.string(from: labors[indexPath.row].date! as Date)
+        cell.textLabel?.text = NumberFormatter.localizedString(from: NSNumber(value: indexPath.row + 2), number: .ordinal) + ":  " + managersSortedForTable[indexPath.row]
+        cell.detailTextLabel?.text = "Number of Shifts: " + String(shiftsSortedForTable[indexPath.row])
         let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
-        label.text = String(labors[indexPath.row].amount)
+        label.text = String(format: "%.2f", laborsSortedForTable[indexPath.row])
         label.textAlignment = .right
         cell.accessoryView = label
- */
         return cell
+    }
+}
+extension Date {
+    func isBetween(_ date1: Date, and date2: Date) -> Bool {
+        return (min(date1, date2) ... max(date1, date2)).contains(self)
     }
 }

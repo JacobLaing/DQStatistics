@@ -85,6 +85,7 @@ extension ManagersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             PersistenceService.context.delete(managers[indexPath.row])
+            PersistenceService.saveContext()
             let fetchRequest: NSFetchRequest<Manager> = Manager.fetchRequest()
             do {
                 let managers = try PersistenceService.context.fetch(fetchRequest)

@@ -90,6 +90,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
             PersistenceService.context.delete(labors[indexPath.row])
+            PersistenceService.saveContext()
             let fetchRequest: NSFetchRequest<Labor> = Labor.fetchRequest()
             do {
                 let labors = try PersistenceService.context.fetch(fetchRequest)

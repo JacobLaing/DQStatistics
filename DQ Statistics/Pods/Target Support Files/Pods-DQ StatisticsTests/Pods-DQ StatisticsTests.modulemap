@@ -1,0 +1,6 @@
+framework module Pods_DQ_StatisticsTests {
+  umbrella header "Pods-DQ StatisticsTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

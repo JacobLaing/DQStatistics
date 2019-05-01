@@ -8,12 +8,18 @@
 
 import UIKit
 import CoreData
+import Charts
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var chartSwitch: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var barChart: BarChartView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     var labors = [Labor]()
+    var allLaborsSorted = [Labor]()
+    var lastTenLabors = [Labor]()
+    var index = 10
     override func viewDidLoad() {
         super.viewDidLoad()
         sideMenus()
@@ -25,11 +31,127 @@ class ViewController: UIViewController {
             let labors = try PersistenceService.context.fetch(fetchRequest)
             let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
             self.labors = sortedLabors
+            allLaborsSorted = self.labors
             self.tableView.reloadData()
         } catch{}
+        index = 10
+        while (index > 0) {
+            lastTenLabors.append(allLaborsSorted[index])
+            index = index - 1
+        }
+        barChartUpdate()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLaborTable(_:)), name: Notification.Name(rawValue: "updateLaborTable"), object: nil)
         // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func chartFilterChanged(_ sender: UISegmentedControl) {
+        barChartUpdate()
+    }
+    func barChartUpdate() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM"
+        var monthTotals = [Double]()
+        var i = 12
+        while (i > 0) {
+            monthTotals.append(0.0)
+            i -= 1
+        }
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            var janTotal = 0.0
+            var febTotal = 0.0
+            var marTotal = 0.0
+            var aprTotal = 0.0
+            var mayTotal = 0.0
+            var junTotal = 0.0
+            var julTotal = 0.0
+            var augTotal = 0.0
+            var sepTotal = 0.0
+            var octTotal = 0.0
+            var novTotal = 0.0
+            var decTotal = 0.0
+            
+            for labor in allLaborsSorted {
+                switch Int(dateFormatter.string(from: labor.date! as Date)) {
+                case 1:
+                    janTotal += 1.0
+                    monthTotals[0] += labor.amount
+                    break
+                case 2:
+                    febTotal += 1.0
+                    monthTotals[1] += labor.amount
+                    break
+                case 3:
+                    marTotal += 1.0
+                    monthTotals[2] += labor.amount
+                    break
+                case 4:
+                    aprTotal += 1.0
+                    monthTotals[3] += labor.amount
+                    break
+                case 5:
+                    mayTotal += 1.0
+                    monthTotals[4] += labor.amount
+                    break
+                case 6:
+                    junTotal += 1.0
+                    monthTotals[5] += labor.amount
+                    break
+                case 7:
+                    julTotal += 1.0
+                    monthTotals[6] += labor.amount
+                    break
+                case 8:
+                    augTotal += 1.0
+                    monthTotals[7] += labor.amount
+                    break
+                case 9:
+                    sepTotal += 1.0
+                    monthTotals[8] += labor.amount
+                    break
+                case 10:
+                    octTotal += 1.0
+                    monthTotals[9] += labor.amount
+                    break
+                case 11:
+                    novTotal += 1.0
+                    monthTotals[10] += labor.amount
+                    break
+                case 12:
+                    decTotal += 1.0
+                    monthTotals[11] += labor.amount
+                    break
+                default:
+                    break
+                }
+            }
+            monthTotals[0] = monthTotals[0]/janTotal
+            monthTotals[1] = monthTotals[1]/febTotal
+            monthTotals[2] = monthTotals[2]/marTotal
+            monthTotals[3] = monthTotals[3]/aprTotal
+            monthTotals[4] = monthTotals[4]/mayTotal
+            monthTotals[5] = monthTotals[5]/junTotal
+            monthTotals[6] = monthTotals[6]/julTotal
+            monthTotals[7] = monthTotals[7]/augTotal
+            monthTotals[8] = monthTotals[8]/sepTotal
+            monthTotals[9] = monthTotals[9]/octTotal
+            monthTotals[10] = monthTotals[10]/novTotal
+            monthTotals[11] = monthTotals[11]/decTotal
+            var entries = [BarChartDataEntry]()
+            var index = 1.0
+            for value in monthTotals {
+                entries.append(BarChartDataEntry(x: index, y: value))
+                index += 1.0
+            }
+            let dataSet = BarChartDataSet(entries: entries, label: "Month")
+            let data = BarChartData(dataSets: [dataSet])
+            barChart.data = data
+            barChart.chartDescription?.text = "Average Labor by Month"
+        }
+        else {
+            
+        }
+        barChart.notifyDataSetChanged()
     }
     
     @objc func updateLaborTable(_ notification: Notification) {
@@ -38,8 +160,15 @@ class ViewController: UIViewController {
             let labors = try PersistenceService.context.fetch(fetchRequest)
             let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
             self.labors = sortedLabors
+            allLaborsSorted = self.labors
             self.tableView.reloadData()
         } catch{}
+        index = 10
+        while (index > 0) {
+            lastTenLabors.append(allLaborsSorted[index])
+            index = index - 1
+        }
+        barChartUpdate()
     }
     
     func sideMenus() {

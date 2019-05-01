@@ -18,6 +18,12 @@ class ContestViewController: UIViewController {
     @IBOutlet weak var firstPlaceAvgLaborLabel: UILabel!
     @IBOutlet weak var dateRangeLabel: UILabel!
     @IBOutlet weak var firstPlaceShiftsLabel: UILabel!
+    @IBOutlet weak var secondPlaceManagerNameField: UILabel!
+    @IBOutlet weak var secondPlaceLaborField: UILabel!
+    @IBOutlet weak var thirdPlaceLaborField: UILabel!
+    @IBOutlet weak var thirdPlaceShiftsField: UILabel!
+    @IBOutlet weak var secondPlaceShiftsField: UILabel!
+    @IBOutlet weak var thirdPlaceManagerNameField: UILabel!
     var labors = [Labor]()
     var managers = [Manager]()
     var managerNames = [String]()
@@ -47,7 +53,7 @@ class ContestViewController: UIViewController {
         } catch{}
         
         sortByManagerName()
-        dateRangeLabel.text = ""
+        dateRangeLabel.text = "All Time"
         calculateAverageLabors(laborsToUse: managerLabors)
         NotificationCenter.default.addObserver(self, selector: #selector(datesSelected(_:)), name: Notification.Name(rawValue: "datesSelected"), object: nil)
         // Do any additional setup after loading the view.
@@ -69,7 +75,7 @@ class ContestViewController: UIViewController {
             calculateAverageLabors(laborsToUse: laborsByDate)
         }
         else {
-            dateRangeLabel.text = ""
+            dateRangeLabel.text = "All Time"
             calculateAverageLabors(laborsToUse: managerLabors)
         }
     }
@@ -129,6 +135,22 @@ class ContestViewController: UIViewController {
                             firstPlaceNameLabel.text = managerName
                             firstPlaceAvgLaborLabel.text = String(format: "%.2f", amount)
                             firstPlaceShiftsLabel.text = String(shifts)
+                            secondPlaceManagerNameField.text = ""
+                            secondPlaceLaborField.text = ""
+                            secondPlaceShiftsField.text = ""
+                            thirdPlaceManagerNameField.text = ""
+                            thirdPlaceLaborField.text = ""
+                            thirdPlaceShiftsField.text = ""
+                        }
+                        else if (place == 1) {
+                            secondPlaceManagerNameField.text = managerName
+                            secondPlaceLaborField.text = "Average Labor: " + String(format: "%.2f", amount)
+                            secondPlaceShiftsField.text = "Number of Shifts: " + String(shifts)
+                        }
+                        else if (place == 2) {
+                            thirdPlaceManagerNameField.text = managerName
+                            thirdPlaceLaborField.text = "Average Labor: " + String(format: "%.2f", amount)
+                            thirdPlaceShiftsField.text = "Number of Shifts: " + String(shifts)
                         }
                         else {
                             managersSortedForTable.append(managersToUse[i])
@@ -150,6 +172,12 @@ class ContestViewController: UIViewController {
             firstPlaceNameLabel.text = "-"
             firstPlaceAvgLaborLabel.text = "-"
             firstPlaceShiftsLabel.text = "-"
+            secondPlaceManagerNameField.text = ""
+            secondPlaceLaborField.text = ""
+            secondPlaceShiftsField.text = ""
+            thirdPlaceManagerNameField.text = ""
+            thirdPlaceLaborField.text = ""
+            thirdPlaceShiftsField.text = ""
         }
         tableView.reloadData()
     }
@@ -201,7 +229,7 @@ extension ContestViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        cell.textLabel?.text = NumberFormatter.localizedString(from: NSNumber(value: indexPath.row + 2), number: .ordinal) + ":  " + managersSortedForTable[indexPath.row]
+        cell.textLabel?.text = NumberFormatter.localizedString(from: NSNumber(value: indexPath.row + 4), number: .ordinal) + ":  " + managersSortedForTable[indexPath.row]
         cell.detailTextLabel?.text = "Number of Shifts: " + String(shiftsSortedForTable[indexPath.row])
         let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
         label.text = String(format: "%.2f", laborsSortedForTable[indexPath.row])

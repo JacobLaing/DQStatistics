@@ -16,15 +16,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var barChart: BarChartView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    weak var axisFormatDelegate: IAxisValueFormatter?
     var labors = [Labor]()
     var allLaborsSorted = [Labor]()
     var lastTenLabors = [Labor]()
+    var lastTenLaborsSorted = [Labor]()
+    var lastTenLaborAmounts = [Double]()
     var index = 10
+    let months: [String]! = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    var lastTenDays = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         sideMenus()
         customizeNavBar()
-    
+
+        axisFormatDelegate = self
         //returns an array of labors
         let fetchRequest: NSFetchRequest<Labor> = Labor.fetchRequest()
         do {
@@ -34,11 +40,21 @@ class ViewController: UIViewController {
             allLaborsSorted = self.labors
             self.tableView.reloadData()
         } catch{}
-        index = 10
-        while (index > 0) {
-            lastTenLabors.append(allLaborsSorted[index])
-            index = index - 1
+        lastTenLabors = [Labor]()
+        lastTenLaborAmounts = [Double]()
+        for labor in allLaborsSorted {
+            if (lastTenLabors.count < 10) {
+                lastTenLabors.insert(labor, at: 0)
+                lastTenLaborAmounts.insert(labor.amount, at: 0)
+            }
+            else {
+                break
+            }
         }
+        while (lastTenLaborAmounts.count < 10) {
+            lastTenLaborAmounts.insert(0.0, at: 0)
+        }
+        lastTenLaborsSorted = lastTenLabors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
         barChartUpdate()
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateLaborTable(_:)), name: Notification.Name(rawValue: "updateLaborTable"), object: nil)
@@ -46,112 +62,150 @@ class ViewController: UIViewController {
     }
     
     @IBAction func chartFilterChanged(_ sender: UISegmentedControl) {
+        self.tableView.reloadData()
         barChartUpdate()
     }
     func barChartUpdate() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM"
-        var monthTotals = [Double]()
-        var i = 12
-        while (i > 0) {
-            monthTotals.append(0.0)
-            i -= 1
-        }
         if (chartSwitch.selectedSegmentIndex == 0) {
-            var janTotal = 0.0
-            var febTotal = 0.0
-            var marTotal = 0.0
-            var aprTotal = 0.0
-            var mayTotal = 0.0
-            var junTotal = 0.0
-            var julTotal = 0.0
-            var augTotal = 0.0
-            var sepTotal = 0.0
-            var octTotal = 0.0
-            var novTotal = 0.0
-            var decTotal = 0.0
-            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM"
+            var numEntriesPerMonth = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+            var monthTotals = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
             for labor in allLaborsSorted {
                 switch Int(dateFormatter.string(from: labor.date! as Date)) {
                 case 1:
-                    janTotal += 1.0
+                    numEntriesPerMonth[0] += 1.0
                     monthTotals[0] += labor.amount
                     break
                 case 2:
-                    febTotal += 1.0
+                    numEntriesPerMonth[1] += 1.0
                     monthTotals[1] += labor.amount
                     break
                 case 3:
-                    marTotal += 1.0
+                    numEntriesPerMonth[2] += 1.0
                     monthTotals[2] += labor.amount
                     break
                 case 4:
-                    aprTotal += 1.0
+                    numEntriesPerMonth[3] += 1.0
                     monthTotals[3] += labor.amount
                     break
                 case 5:
-                    mayTotal += 1.0
+                    numEntriesPerMonth[4] += 1.0
                     monthTotals[4] += labor.amount
                     break
                 case 6:
-                    junTotal += 1.0
+                    numEntriesPerMonth[5] += 1.0
                     monthTotals[5] += labor.amount
                     break
                 case 7:
-                    julTotal += 1.0
+                    numEntriesPerMonth[6] += 1.0
                     monthTotals[6] += labor.amount
                     break
                 case 8:
-                    augTotal += 1.0
+                    numEntriesPerMonth[7] += 1.0
                     monthTotals[7] += labor.amount
                     break
                 case 9:
-                    sepTotal += 1.0
+                    numEntriesPerMonth[8] += 1.0
                     monthTotals[8] += labor.amount
                     break
                 case 10:
-                    octTotal += 1.0
+                    numEntriesPerMonth[9] += 1.0
                     monthTotals[9] += labor.amount
                     break
                 case 11:
-                    novTotal += 1.0
+                    numEntriesPerMonth[10] += 1.0
                     monthTotals[10] += labor.amount
                     break
                 case 12:
-                    decTotal += 1.0
+                    numEntriesPerMonth[11] += 1.0
                     monthTotals[11] += labor.amount
                     break
                 default:
                     break
                 }
             }
-            monthTotals[0] = monthTotals[0]/janTotal
-            monthTotals[1] = monthTotals[1]/febTotal
-            monthTotals[2] = monthTotals[2]/marTotal
-            monthTotals[3] = monthTotals[3]/aprTotal
-            monthTotals[4] = monthTotals[4]/mayTotal
-            monthTotals[5] = monthTotals[5]/junTotal
-            monthTotals[6] = monthTotals[6]/julTotal
-            monthTotals[7] = monthTotals[7]/augTotal
-            monthTotals[8] = monthTotals[8]/sepTotal
-            monthTotals[9] = monthTotals[9]/octTotal
-            monthTotals[10] = monthTotals[10]/novTotal
-            monthTotals[11] = monthTotals[11]/decTotal
-            var entries = [BarChartDataEntry]()
-            var index = 1.0
-            for value in monthTotals {
-                entries.append(BarChartDataEntry(x: index, y: value))
-                index += 1.0
+            for i in 0..<monthTotals.count{
+                monthTotals[i] = monthTotals[i]/numEntriesPerMonth[i]
+                if (monthTotals[i].isNaN) {
+                    monthTotals[i] = 0.0
+                }
             }
-            let dataSet = BarChartDataSet(entries: entries, label: "Month")
-            let data = BarChartData(dataSets: [dataSet])
-            barChart.data = data
+            barChart.xAxis.drawAxisLineEnabled = false
+            barChart.xAxis.drawGridLinesEnabled = false
             barChart.chartDescription?.text = "Average Labor by Month"
+            setChart(dataEntryX: months, dataEntryY: monthTotals)
         }
         else {
-            
+            barChart.xAxis.drawAxisLineEnabled = false
+            barChart.xAxis.drawGridLinesEnabled = false
+            barChart.chartDescription?.text = "Labor Over Last 10 Days"
+            lastTenDays = [String]()
+            for i in 0..<lastTenLabors.count{
+                lastTenDays.insert(String((lastTenLabors[lastTenLabors.count - (i+1)].date! as Date).dayNumberOfWeek()!), at: 0)
+            }
+            while (lastTenDays.count < 10) {
+                lastTenDays.insert("", at: 0)
+            }
+            for i in 0..<lastTenDays.count{
+                switch lastTenDays[i] {
+                case "1":
+                    lastTenDays[i] = "Sun"
+                    break
+                case "2":
+                    lastTenDays[i] = "Mon"
+                    break
+                case "3":
+                    lastTenDays[i] = "Tue"
+                    break
+                case "4":
+                    lastTenDays[i] = "Wed"
+                    break
+                case "5":
+                    lastTenDays[i] = "Thu"
+                    break
+                case "6":
+                    lastTenDays[i] = "Fri"
+                    break
+                case "7":
+                    lastTenDays[i] = "Sat"
+                    break
+                default:
+                    break
+                }
+            }
+            setChart(dataEntryX: lastTenDays, dataEntryY: lastTenLaborAmounts)
         }
         barChart.notifyDataSetChanged()
+    }
+    
+    func getDayOfWeek(_ today:String) -> Int? {
+        let formatter  = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        guard let todayDate = formatter.date(from: today) else { return nil }
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.weekday, from: todayDate)
+        return weekDay
+    }
+    
+    func setChart(dataEntryX forX:[String],dataEntryY forY: [Double]) {
+        var dataEntries:[BarChartDataEntry] = []
+        for i in 0..<forX.count{
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(forY[i]) , data: months as AnyObject?)
+            dataEntries.append(dataEntry)
+        }
+        var dataSet: BarChartDataSet
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            dataSet = BarChartDataSet(entries: dataEntries, label: "Average Labor")
+        }
+        else {
+            dataSet = BarChartDataSet(entries: dataEntries, label: "Labor")
+        }
+        dataSet.setColor(UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1))
+        let data = BarChartData(dataSet: dataSet)
+        barChart.data = data
+        let xAxisValue = barChart.xAxis
+        xAxisValue.valueFormatter = axisFormatDelegate
     }
     
     @objc func updateLaborTable(_ notification: Notification) {
@@ -161,13 +215,23 @@ class ViewController: UIViewController {
             let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
             self.labors = sortedLabors
             allLaborsSorted = self.labors
-            self.tableView.reloadData()
         } catch{}
-        index = 10
-        while (index > 0) {
-            lastTenLabors.append(allLaborsSorted[index])
-            index = index - 1
+        lastTenLabors = [Labor]()
+        lastTenLaborAmounts = [Double]()
+        for labor in allLaborsSorted {
+            if (lastTenLabors.count < 10) {
+                lastTenLabors.insert(labor, at: 0)
+                lastTenLaborAmounts.insert(labor.amount, at: 0)
+            }
+            else {
+                break
+            }
         }
+        while (lastTenLaborAmounts.count < 10) {
+            lastTenLaborAmounts.insert(0.0, at: 0)
+        }
+        lastTenLaborsSorted = lastTenLabors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
+        self.tableView.reloadData()
         barChartUpdate()
     }
     
@@ -196,20 +260,39 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return labors.count
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            return labors.count
+        }
+        else {
+            return lastTenLabors.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        cell.textLabel?.text = labors[indexPath.row].name!
-        cell.detailTextLabel?.text = dateFormatter.string(from: labors[indexPath.row].date! as Date)
-        let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
-        label.text = String(labors[indexPath.row].amount)
-        label.textAlignment = .right
-        cell.accessoryView = label
-        return cell
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            cell.textLabel?.text = labors[indexPath.row].name!
+            cell.detailTextLabel?.text = dateFormatter.string(from: labors[indexPath.row].date! as Date)
+            let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
+            label.text = String(labors[indexPath.row].amount)
+            label.textAlignment = .right
+            cell.accessoryView = label
+            return cell
+        }
+        else {
+            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            cell.textLabel?.text = lastTenLaborsSorted[indexPath.row].name!
+            cell.detailTextLabel?.text = dateFormatter.string(from: lastTenLaborsSorted[indexPath.row].date! as Date)
+            let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
+            label.text = String(lastTenLaborsSorted[indexPath.row].amount)
+            label.textAlignment = .right
+            cell.accessoryView = label
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -225,8 +308,63 @@ extension ViewController: UITableViewDataSource {
                 let labors = try PersistenceService.context.fetch(fetchRequest)
                 let sortedLabors = labors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
                 self.labors = sortedLabors
-                self.tableView.reloadData()
+                allLaborsSorted = self.labors
             } catch{}
+            lastTenLabors = [Labor]()
+            lastTenLaborAmounts = [Double]()
+            for labor in allLaborsSorted {
+                if (lastTenLabors.count < 10) {
+                    lastTenLabors.insert(labor, at: 0)
+                    lastTenLaborAmounts.insert(labor.amount, at: 0)
+                }
+                else {
+                    break
+                }
+            }
+            while (lastTenLaborAmounts.count < 10) {
+                lastTenLaborAmounts.insert(0.0, at: 0)
+            }
+            lastTenLaborsSorted = lastTenLabors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
+            self.tableView.reloadData()
+            barChartUpdate()
         }
     }
 }
+
+extension ViewController: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            return months[Int(value)]
+        }
+        else {
+            return lastTenDays[Int(value)]
+        }
+    }
+}
+
+extension Date {
+    func dayNumberOfWeek() -> Int? {
+        return Calendar.current.dateComponents([.weekday], from: self).weekday
+    }
+}
+extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var month: Int {
+        return Calendar.current.component(.month,  from: self)
+    }
+    var isLastDayOfMonth: Bool {
+        return dayAfter.month != month
+    }
+}
+

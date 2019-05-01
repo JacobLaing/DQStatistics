@@ -48,6 +48,11 @@ class LaborPopupViewController: UIViewController, UIPickerViewDelegate, UIPicker
         datePicker?.datePickerMode = .date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
+        var dateComponents = DateComponents()
+        dateComponents.setValue(-1, for: .day)
+        let now = Date() // Current date
+        let yesterday = Calendar.current.date(byAdding: dateComponents, to: now)
+        datePicker?.setDate(yesterday!, animated: true)
         dateTextField.text = dateFormatter.string(from: datePicker!.date)
         datePicker?.addTarget(self, action: #selector(LaborPopupViewController.dateChanged(datePicker:)), for: .valueChanged)
         
@@ -130,3 +135,4 @@ class LaborPopupViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
 }
+

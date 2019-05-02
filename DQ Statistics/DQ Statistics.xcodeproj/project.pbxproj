@@ -31,6 +31,7 @@
 		8D2759732276B5320038989F /* app_icon.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D2759722276B5310038989F /* app_icon.JPG */; };
 		8D2759752276C62D0038989F /* ContestPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759742276C62D0038989F /* ContestPopupViewController.swift */; };
 		8D275979227A5BB70038989F /* app_icon2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D275978227A5BB60038989F /* app_icon2.JPG */; };
+		8D27597B227AA5A10038989F /* DrawersPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27597A227AA5A10038989F /* DrawersPopupViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		8D2759722276B5310038989F /* app_icon.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon.JPG; path = ../../../../app_icon.JPG; sourceTree = "<group>"; };
 		8D2759742276C62D0038989F /* ContestPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestPopupViewController.swift; sourceTree = "<group>"; };
 		8D275978227A5BB60038989F /* app_icon2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon2.JPG; path = ../../../../app_icon2.JPG; sourceTree = "<group>"; };
+		8D27597A227AA5A10038989F /* DrawersPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawersPopupViewController.swift; sourceTree = "<group>"; };
 		922A983B2403E0FBCC72EA72 /* Pods-DQ Statistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQ Statistics.release.xcconfig"; path = "Target Support Files/Pods-DQ Statistics/Pods-DQ Statistics.release.xcconfig"; sourceTree = "<group>"; };
 		AC98CF45ABDCEB8CCB7193C5 /* Pods-DQ Statistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQ Statistics.debug.xcconfig"; path = "Target Support Files/Pods-DQ Statistics/Pods-DQ Statistics.debug.xcconfig"; sourceTree = "<group>"; };
 		C060B9ADC15B1FDC5BD770D6 /* Pods_DQ_Statistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DQ_Statistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +149,7 @@
 				8D27596B22742AC60038989F /* Labor+CoreDataProperties.swift */,
 				8D275962227410E50038989F /* Manager+CoreDataClass.swift */,
 				8D275963227410E50038989F /* Manager+CoreDataProperties.swift */,
+				8D27597A227AA5A10038989F /* DrawersPopupViewController.swift */,
 				8D27591722702D220038989F /* AppDelegate.swift */,
 				8D2759742276C62D0038989F /* ContestPopupViewController.swift */,
 				8D2759702276ABD60038989F /* managersPopupViewController.swift */,
@@ -360,6 +363,7 @@
 				8D27591822702D220038989F /* AppDelegate.swift in Sources */,
 				8D27594D2273F2BD0038989F /* DrawersViewController.swift in Sources */,
 				8D27594B2273F1090038989F /* YieldsViewController.swift in Sources */,
+				8D27597B227AA5A10038989F /* DrawersPopupViewController.swift in Sources */,
 				8D27592022702D220038989F /* DQ_Statistics.xcdatamodeld in Sources */,
 				8D2759512273F2DC0038989F /* ManagersViewController.swift in Sources */,
 				8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */,

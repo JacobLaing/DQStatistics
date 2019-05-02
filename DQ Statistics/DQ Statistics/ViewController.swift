@@ -12,6 +12,11 @@ import Charts
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var variableDifferenceLabel: UILabel!
+    @IBOutlet weak var variableAverageLabel: UILabel!
+    @IBOutlet weak var allTimeEntriesLabel: UILabel!
+    @IBOutlet weak var allTimeAverageLabel: UILabel!
+    @IBOutlet weak var variableLabel: UILabel!
     @IBOutlet weak var chartSwitch: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var barChart: BarChartView!
@@ -29,9 +34,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         sideMenus()
         customizeNavBar()
-
         axisFormatDelegate = self
-        //returns an array of labors
         let fetchRequest: NSFetchRequest<Labor> = Labor.fetchRequest()
         do {
             let labors = try PersistenceService.context.fetch(fetchRequest)
@@ -54,19 +57,105 @@ class ViewController: UIViewController {
         while (lastTenLaborAmounts.count < 10) {
             lastTenLaborAmounts.insert(0.0, at: 0)
         }
+        var sum = 0.0
+        for labor in self.labors {
+            sum += labor.amount
+        }
+        allTimeAverageLabel.text = String(format: "%.2f", sum/Double(self.labors.count))
+        allTimeEntriesLabel.text = "Entries: " + String(self.labors.count)
+        var difference = 0.0
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            variableLabel.text = "This Year"
+            var yearSum = 0.0
+            var yearEntries = 0
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy"
+            let curYear = Calendar.current.component(.year, from: Date())
+            for labor in self.labors {
+                if (dateFormatter.string(from: labor.date! as Date) == String(curYear)) {
+                    yearSum += labor.amount
+                    yearEntries += 1
+                }
+            }
+            variableAverageLabel.text = String(format: "%.2f", yearSum/Double(yearEntries))
+        }
+        else {
+            variableLabel.text = "Last 10 Days"
+            var sumTen = 0.0
+            for labor in lastTenLabors {
+                sumTen += labor.amount
+            }
+            variableAverageLabel.text = String(format: "%.2f", sumTen/Double(lastTenLabors.count))
+        }
+        difference = Double(allTimeAverageLabel.text!)! - Double(variableAverageLabel.text!)!
+        if (difference > 0) {
+            variableDifferenceLabel.text = "-" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
+        }
+        else if (difference < 0) {
+            variableDifferenceLabel.text = "+" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
+        }
+        else {
+            variableDifferenceLabel.text = "+/-" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
+        }
         lastTenLaborsSorted = lastTenLabors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
+        barChart.rightAxis.axisMinimum = 0.0
+        barChart.leftAxis.axisMinimum = 0.0
+        barChart.xAxis.labelPosition = XAxis.LabelPosition.bottom
         barChartUpdate()
-        
+        barChart.animate(xAxisDuration: 1.5, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLaborTable(_:)), name: Notification.Name(rawValue: "updateLaborTable"), object: nil)
         // Do any additional setup after loading the view.
     }
     
     @IBAction func chartFilterChanged(_ sender: UISegmentedControl) {
+        var difference = 0.0
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            variableLabel.text = "This Year"
+            var yearSum = 0.0
+            var yearEntries = 0
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy"
+            let curYear = Calendar.current.component(.year, from: Date())
+            for labor in self.labors {
+                if (dateFormatter.string(from: labor.date! as Date) == String(curYear)) {
+                    yearSum += labor.amount
+                    yearEntries += 1
+                }
+            }
+            variableAverageLabel.text = String(format: "%.2f", yearSum/Double(yearEntries))
+        }
+        else {
+            variableLabel.text = "Last 10 Days"
+            var sumTen = 0.0
+            for labor in lastTenLabors {
+                sumTen += labor.amount
+            }
+            variableAverageLabel.text = String(format: "%.2f", sumTen/Double(lastTenLabors.count))
+        }
+        difference = Double(allTimeAverageLabel.text!)! - Double(variableAverageLabel.text!)!
+        if (difference > 0) {
+            variableDifferenceLabel.text = "-" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
+        }
+        else if (difference < 0) {
+            variableDifferenceLabel.text = "+" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
+        }
+        else {
+            variableDifferenceLabel.text = "+/-" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
+        }
         self.tableView.reloadData()
         barChartUpdate()
+        barChart.animate(xAxisDuration: 1.5, yAxisDuration: 2.0, easingOption: .easeInOutQuart)
     }
+    
     func barChartUpdate() {
         if (chartSwitch.selectedSegmentIndex == 0) {
+            barChart.xAxis.labelCount = 12
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM"
             var numEntriesPerMonth = [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
@@ -133,13 +222,12 @@ class ViewController: UIViewController {
             }
             barChart.xAxis.drawAxisLineEnabled = false
             barChart.xAxis.drawGridLinesEnabled = false
-            barChart.chartDescription?.text = "Average Labor by Month"
             setChart(dataEntryX: months, dataEntryY: monthTotals)
         }
         else {
+            barChart.xAxis.labelCount = 10
             barChart.xAxis.drawAxisLineEnabled = false
             barChart.xAxis.drawGridLinesEnabled = false
-            barChart.chartDescription?.text = "Labor Over Last 10 Days"
             lastTenDays = [String]()
             for i in 0..<lastTenLabors.count{
                 lastTenDays.insert(String((lastTenLabors[lastTenLabors.count - (i+1)].date! as Date).dayNumberOfWeek()!), at: 0)
@@ -229,6 +317,49 @@ class ViewController: UIViewController {
         }
         while (lastTenLaborAmounts.count < 10) {
             lastTenLaborAmounts.insert(0.0, at: 0)
+        }
+        var sum = 0.0
+        for labor in self.labors {
+            sum += labor.amount
+        }
+        allTimeAverageLabel.text = String(format: "%.2f", sum/Double(self.labors.count))
+        allTimeEntriesLabel.text = "Entries: " + String(self.labors.count)
+        var difference = 0.0
+        if (chartSwitch.selectedSegmentIndex == 0) {
+            variableLabel.text = "This Year"
+            var yearSum = 0.0
+            var yearEntries = 0
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy"
+            let curYear = Calendar.current.component(.year, from: Date())
+            for labor in self.labors {
+                if (dateFormatter.string(from: labor.date! as Date) == String(curYear)) {
+                    yearSum += labor.amount
+                    yearEntries += 1
+                }
+            }
+            variableAverageLabel.text = String(format: "%.2f", yearSum/Double(yearEntries))
+        }
+        else {
+            variableLabel.text = "Last 10 Days"
+            var sumTen = 0.0
+            for labor in lastTenLabors {
+                sumTen += labor.amount
+            }
+            variableAverageLabel.text = String(format: "%.2f", sumTen/Double(lastTenLabors.count))
+        }
+        difference = Double(allTimeAverageLabel.text!)! - Double(variableAverageLabel.text!)!
+        if (difference > 0) {
+            variableDifferenceLabel.text = "-" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
+        }
+        else if (difference < 0) {
+            variableDifferenceLabel.text = "+" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
+        }
+        else {
+            variableDifferenceLabel.text = "+/-" + String(format: "%.2f", abs(difference))
+            variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
         }
         lastTenLaborsSorted = lastTenLabors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
         self.tableView.reloadData()
@@ -323,6 +454,49 @@ extension ViewController: UITableViewDataSource {
             }
             while (lastTenLaborAmounts.count < 10) {
                 lastTenLaborAmounts.insert(0.0, at: 0)
+            }
+            var sum = 0.0
+            for labor in self.labors {
+                sum += labor.amount
+            }
+            allTimeAverageLabel.text = String(format: "%.2f", sum/Double(self.labors.count))
+            allTimeEntriesLabel.text = "Entries: " + String(self.labors.count)
+            var difference = 0.0
+            if (chartSwitch.selectedSegmentIndex == 0) {
+                variableLabel.text = "This Year"
+                var yearSum = 0.0
+                var yearEntries = 0
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy"
+                let curYear = Calendar.current.component(.year, from: Date())
+                for labor in self.labors {
+                    if (dateFormatter.string(from: labor.date! as Date) == String(curYear)) {
+                        yearSum += labor.amount
+                        yearEntries += 1
+                    }
+                }
+                variableAverageLabel.text = String(format: "%.2f", yearSum/Double(yearEntries))
+            }
+            else {
+                variableLabel.text = "Last 10 Days"
+                var sumTen = 0.0
+                for labor in lastTenLabors {
+                    sumTen += labor.amount
+                }
+                variableAverageLabel.text = String(format: "%.2f", sumTen/Double(lastTenLabors.count))
+            }
+            difference = Double(allTimeAverageLabel.text!)! - Double(variableAverageLabel.text!)!
+            if (difference > 0) {
+                variableDifferenceLabel.text = "-" + String(format: "%.2f", abs(difference))
+                variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
+            }
+            else if (difference < 0) {
+                variableDifferenceLabel.text = "+" + String(format: "%.2f", abs(difference))
+                variableDifferenceLabel.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
+            }
+            else {
+                variableDifferenceLabel.text = "+/-" + String(format: "%.2f", abs(difference))
+                variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
             }
             lastTenLaborsSorted = lastTenLabors.sorted(by: { $0.date!.compare($1.date! as Date) == .orderedDescending })
             self.tableView.reloadData()

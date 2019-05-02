@@ -30,6 +30,7 @@
 		8D2759712276ABD60038989F /* managersPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759702276ABD60038989F /* managersPopupViewController.swift */; };
 		8D2759732276B5320038989F /* app_icon.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D2759722276B5310038989F /* app_icon.JPG */; };
 		8D2759752276C62D0038989F /* ContestPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2759742276C62D0038989F /* ContestPopupViewController.swift */; };
+		8D275979227A5BB70038989F /* app_icon2.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 8D275978227A5BB60038989F /* app_icon2.JPG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		8D2759702276ABD60038989F /* managersPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = managersPopupViewController.swift; sourceTree = "<group>"; };
 		8D2759722276B5310038989F /* app_icon.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon.JPG; path = ../../../../app_icon.JPG; sourceTree = "<group>"; };
 		8D2759742276C62D0038989F /* ContestPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContestPopupViewController.swift; sourceTree = "<group>"; };
+		8D275978227A5BB60038989F /* app_icon2.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = app_icon2.JPG; path = ../../../../app_icon2.JPG; sourceTree = "<group>"; };
 		922A983B2403E0FBCC72EA72 /* Pods-DQ Statistics.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQ Statistics.release.xcconfig"; path = "Target Support Files/Pods-DQ Statistics/Pods-DQ Statistics.release.xcconfig"; sourceTree = "<group>"; };
 		AC98CF45ABDCEB8CCB7193C5 /* Pods-DQ Statistics.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DQ Statistics.debug.xcconfig"; path = "Target Support Files/Pods-DQ Statistics/Pods-DQ Statistics.debug.xcconfig"; sourceTree = "<group>"; };
 		C060B9ADC15B1FDC5BD770D6 /* Pods_DQ_Statistics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DQ_Statistics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,7 +117,6 @@
 				4C9DA5680D82C41A3BB37813 /* Pods-DQ StatisticsTests.debug.xcconfig */,
 				F24F2DA9829149656D93AD19 /* Pods-DQ StatisticsTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -159,6 +160,7 @@
 				8D27593B227148AE0038989F /* SWRevealViewController.h */,
 				8D27593C227148AE0038989F /* SWRevealViewController.m */,
 				8D27592622702D230038989F /* Info.plist */,
+				8D275978227A5BB60038989F /* app_icon2.JPG */,
 				8D2759722276B5310038989F /* app_icon.JPG */,
 				8D27591E22702D220038989F /* DQ_Statistics.xcdatamodeld */,
 				8D27593A227148AD0038989F /* DQ Statistics-Bridging-Header.h */,
@@ -267,6 +269,7 @@
 				8D27592522702D230038989F /* LaunchScreen.storyboard in Resources */,
 				8D27592222702D230038989F /* Assets.xcassets in Resources */,
 				8D27591D22702D220038989F /* Main.storyboard in Resources */,
+				8D275979227A5BB70038989F /* app_icon2.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

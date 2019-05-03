@@ -32,7 +32,6 @@ class LaborPopupViewController: UIViewController, UIPickerViewDelegate, UIPicker
             let managers = try PersistenceService.context.fetch(fetchRequest)
             let managersSorted = managers.sorted { $0.name!.localizedCaseInsensitiveCompare($1.name!) == ComparisonResult.orderedAscending}
             self.managers = managersSorted
-            //self.tableView.reloadData()
         } catch{}
         
         managerPicker = UIPickerView()

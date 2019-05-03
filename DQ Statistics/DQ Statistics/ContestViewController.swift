@@ -56,7 +56,6 @@ class ContestViewController: UIViewController {
         dateRangeLabel.text = "All Time"
         calculateAverageLabors(laborsToUse: managerLabors)
         NotificationCenter.default.addObserver(self, selector: #selector(datesSelected(_:)), name: Notification.Name(rawValue: "datesSelected"), object: nil)
-        // Do any additional setup after loading the view.
     }
     
     @objc func datesSelected(_ notification: Notification) {

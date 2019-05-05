@@ -171,15 +171,19 @@ class DrawersViewController: UIViewController {
                 yearlyDrawerDifferenceTotals[index] += drawer.deposited - drawer.counted
             }
         }
-        yearlyDepositedLabel.text = "$" + String(format: "%.2f", yearlyDrawerDepositTotals.reduce(0, +))
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
+        yearlyDepositedLabel.text = "$" + numberFormatter.string(from: NSNumber(value: yearlyDrawerDepositTotals.reduce(0, +)))!
         let difference = yearlyDrawerDifferenceTotals.reduce(0, +)
         if (difference >= 0) {
-            yearlyDifferenceLabel.text = "$" + String(format: "%.2f", abs(difference))
+            yearlyDifferenceLabel.text = "$" + numberFormatter.string(from: NSNumber(value: abs(difference)))!
             yearlyDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
         }
             //Amount counted is less than deposited (Good)
         else {
-            yearlyDifferenceLabel.text = "-$" + String(format: "%.2f", abs(difference))
+            yearlyDifferenceLabel.text = "-$" + numberFormatter.string(from: NSNumber(value: abs(difference)))!
             yearlyDifferenceLabel.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
         }
         lastTenDrawers = [Drawer]()
@@ -207,22 +211,22 @@ class DrawersViewController: UIViewController {
             variableNameLabel.text = "This Month"
             let curMonth = Calendar.current.component(.month, from: Date())
             let index = curMonth - 1
-            variableDepositedLabel.text = "$" + String(format: "%.2f", yearlyDrawerDepositTotals[index])
+            variableDepositedLabel.text = "$" + numberFormatter.string(from: NSNumber(value: yearlyDrawerDepositTotals[index]))!//String(format: "%.2f", yearlyDrawerDepositTotals[index])
             diff = yearlyDrawerDifferenceTotals[index]
             //Use yearlyDrawers
         }
         else {
             variableNameLabel.text = "Last 10 Days"
-            variableDepositedLabel.text = "$" + String(format: "%.2f", variableDrawerDepositedTotals.reduce(0, +))
+            variableDepositedLabel.text = "$" + numberFormatter.string(from: NSNumber(value: variableDrawerDepositedTotals.reduce(0, +)))!//String(format: "%.2f", variableDrawerDepositedTotals.reduce(0, +))
             diff = variableDrawerDifferenceTotals.reduce(0, +)
         }
         if (diff >= 0) {
-            variableDifferenceLabel.text = "$" + String(format: "%.2f", abs(diff))
+            variableDifferenceLabel.text = "$" + numberFormatter.string(from: NSNumber(value: abs(diff)))!//String(format: "%.2f", abs(diff))
             variableDifferenceLabel.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
         }
             //Amount counted is less than deposited (Good)
         else {
-            variableDifferenceLabel.text = "-$" + String(format: "%.2f", abs(diff))
+            variableDifferenceLabel.text = "-$" + numberFormatter.string(from: NSNumber(value: abs(diff)))!//String(format: "%.2f", abs(diff))
             variableDifferenceLabel.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
         }
         self.tableView.reloadData()
@@ -274,19 +278,23 @@ extension DrawersViewController: UITableViewDataSource {
         let drawer = drawers[indexPath.row]
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 2
+        numberFormatter.maximumFractionDigits = 2
         cell.managerTextField.text = drawer.name
         cell.dateTextField.text = dateFormatter.string(from: drawer.date! as Date)
-        cell.depositedTextField.text = "Deposited: $" + String(format: "%.2f", drawer.deposited)
-        cell.countedTextField.text = "Counted: $" + String(format: "%.2f", drawer.counted)
+        cell.depositedTextField.text = "Deposited: $" + numberFormatter.string(from: NSNumber(value: drawer.deposited))!
+        cell.countedTextField.text = "Counted: $" + numberFormatter.string(from: NSNumber(value: drawer.counted))!
         let difference = drawer.deposited - drawer.counted
         //Amount counted is less than deposited (Bad)
         if (difference >= 0) {
-            cell.differenceTextField.text = "$" + String(format: "%.2f", abs(difference))
+            cell.differenceTextField.text = "$" + numberFormatter.string(from: NSNumber(value: abs(difference)))!
             cell.differenceTextField.textColor = UIColor(red: 9/255, green: 158/255, blue: 4/255, alpha: 1)
         }
         //Amount counted is less than deposited (Good)
         else {
-            cell.differenceTextField.text = "-$" + String(format: "%.2f", abs(difference))
+            cell.differenceTextField.text = "-$" + numberFormatter.string(from: NSNumber(value: abs(difference)))!
             cell.differenceTextField.textColor = UIColor(red: 238/255, green: 62/255, blue: 66/255, alpha: 1)
         }
         return cell

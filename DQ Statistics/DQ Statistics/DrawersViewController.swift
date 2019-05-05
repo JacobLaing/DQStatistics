@@ -283,7 +283,34 @@ extension DrawersViewController: UITableViewDataSource {
         numberFormatter.minimumFractionDigits = 2
         numberFormatter.maximumFractionDigits = 2
         cell.managerTextField.text = drawer.name
-        cell.dateTextField.text = dateFormatter.string(from: drawer.date! as Date)
+        let day = (drawer.date! as Date).dayNumberOfWeek()!
+        var dayString = ""
+        switch day {
+        case 1:
+            dayString = "Sun"
+            break
+        case 2:
+            dayString = "Mon"
+            break
+        case 3:
+            dayString = "Tue"
+            break
+        case 4:
+            dayString = "Wed"
+            break
+        case 5:
+            dayString = "Thu"
+            break
+        case 6:
+            dayString = "Fri"
+            break
+        case 7:
+            dayString = "Sat"
+            break
+        default:
+            break
+        }
+        cell.dateTextField.text = dayString + ": " + dateFormatter.string(from: drawer.date! as Date)
         cell.depositedTextField.text = "Deposited: $" + numberFormatter.string(from: NSNumber(value: drawer.deposited))!
         cell.countedTextField.text = "Counted: $" + numberFormatter.string(from: NSNumber(value: drawer.counted))!
         let difference = drawer.deposited - drawer.counted

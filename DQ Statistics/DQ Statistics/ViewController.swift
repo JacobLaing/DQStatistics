@@ -405,7 +405,34 @@ extension ViewController: UITableViewDataSource {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             cell.textLabel?.text = labors[indexPath.row].name!
-            cell.detailTextLabel?.text = dateFormatter.string(from: labors[indexPath.row].date! as Date)
+            let day = (labors[indexPath.row].date! as Date).dayNumberOfWeek()!
+            var dayString = ""
+            switch day {
+            case 1:
+                dayString = "Sun"
+                break
+            case 2:
+                dayString = "Mon"
+                break
+            case 3:
+                dayString = "Tue"
+                break
+            case 4:
+                dayString = "Wed"
+                break
+            case 5:
+                dayString = "Thu"
+                break
+            case 6:
+                dayString = "Fri"
+                break
+            case 7:
+                dayString = "Sat"
+                break
+            default:
+                break
+            }
+            cell.detailTextLabel?.text = dayString + ": " + dateFormatter.string(from: labors[indexPath.row].date! as Date)
             let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
             label.text = String(labors[indexPath.row].amount)
             label.textAlignment = .right
@@ -417,7 +444,34 @@ extension ViewController: UITableViewDataSource {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MM/dd/yyyy"
             cell.textLabel?.text = lastTenLaborsSorted[indexPath.row].name!
-            cell.detailTextLabel?.text = dateFormatter.string(from: lastTenLaborsSorted[indexPath.row].date! as Date)
+            let day = (lastTenLaborsSorted[indexPath.row].date! as Date).dayNumberOfWeek()!
+            var dayString = ""
+            switch day {
+            case 1:
+                dayString = "Sun"
+                break
+            case 2:
+                dayString = "Mon"
+                break
+            case 3:
+                dayString = "Tue"
+                break
+            case 4:
+                dayString = "Wed"
+                break
+            case 5:
+                dayString = "Thu"
+                break
+            case 6:
+                dayString = "Fri"
+                break
+            case 7:
+                dayString = "Sat"
+                break
+            default:
+                break
+            }
+            cell.detailTextLabel?.text = dayString + ": " + dateFormatter.string(from: lastTenLaborsSorted[indexPath.row].date! as Date)
             let label = UILabel.init(frame: CGRect(x:0,y:0,width:100,height:20))
             label.text = String(lastTenLaborsSorted[indexPath.row].amount)
             label.textAlignment = .right
